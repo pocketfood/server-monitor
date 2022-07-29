@@ -1,1 +1,65 @@
 
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="css/patternfly.css" type="text/css">
+    <link rel="stylesheet" href="css/patternfly-addons.css" type="text/css">   
+<head>
+  
+</head>
+<body class="container">
+
+    <header class="pf-c-masthead" id="basic-masthead">
+        <span class="pf-c-masthead__toggle">
+        </span>
+        <div class="pf-c-masthead__main">
+          <h2></h2>
+          <a class="pf-c-masthead__brand" href="#"></a>
+        </div>
+        <%= locals.hostname %>
+        <div class="pf-c-masthead__content">
+          <span>Address: <%= locals.address %>|</span>
+          <span>| User: <%= locals.whoami %></span>
+        </div>
+      </header>
+
+<main>
+  <div class="dashboard">
+    <br>
+    <span></span>
+    <p type="text" class="uptime"><%= locals.uptime %></p>
+    
+    
+    
+    <p><%= locals.storage %> out of <%= locals.storagetotal %></p>
+</main>
+
+
+<footer></footer>
+
+<script src="css/dist/chart.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script >
+// use Sockets they say...
+
+async function uptime() {
+  let response = await fetch("http://localhost:3000/uptime", 
+  {
+    method: "GET",
+    mode: "cors",
+  },
+  ).then(response => response.json()).then(data => 
+  {
+    
+    document.querySelector("p").innerHTML = data.uptime;    
+
+  });
+//document.querySelector("h2").innerHTML = new Date;
+} 
+setInterval(uptime, 1000) 
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+</body>
+</html
