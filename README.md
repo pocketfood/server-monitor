@@ -6,6 +6,7 @@ This is a sandbox I plan on putting charts and realtime api calls.
 Learned a lot about sockets, API calls and server to client data transfer.
 Dumb project and I hope someone tells if theres a better way to pull json data.
 
+`npm install && node app.js`
 
 ---
 
