@@ -9,8 +9,6 @@ Dumb project and I hope someone tells if theres a better way to pull json data.
 
 ---
 
-# The structure 
-
 ### router.js 
 This is where each shell command gets executed and pushed to each url. It's in JSON and can be pulled into differnt projects.
 
