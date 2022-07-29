@@ -11,11 +11,11 @@ Dumb project and I hope someone tells if theres a better way to pull json data.
 
 # The structure 
 
-## router.js 
+### router.js 
 This is where each shell command gets executed and pushed to each url. It's in JSON and can be pulled into differnt projects.
 
-## app.js
+### app.js
 Here you pull from router.js using axios and put into variables and pushes static data to index.ejs
 
-## index.ejs
+### index.ejs
 Here is the template where you see all the outputted data. There is a script on the botton of this file that pulls uptime.
