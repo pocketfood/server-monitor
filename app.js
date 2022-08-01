@@ -5,39 +5,6 @@ const port = 3000
 
 const axios = require('axios');
 
-const cors = require('cors')
-
-const { createServer } = require('http');
-const { Server } = require("socket.io");
-const httpServer = createServer(app)
-const io = new Server(httpServer, { 
-    cors: { origin: "*", methods: ["GET", "POST"] }
-});
-
-io.on('connection', (socket) => {
-    console.log("User connected: " + socket.id)
-   
-    io.of("/").on("connection", (socket) => {});
-    
-    socket.on("message", (data) =>{
-    
-    console.log("User:", socket.id + " Sent " + data)
-    socket.broadcast.emit("message", data)    
-
-    socket.on('disconnect', function () {
-        console.log("User disconnected: " + socket.id);
-        
-      });
-    
-    })
-});
-
-
-// This is to see if my socket is working
-const socket = require("socket.io-client")("http://localhost:3000")
-socket.on("connect_error", (err) => {
-    console.log(`Connect_error due to ${err.message}`)
-})
 
 
 app.get('/', (req, res) => {
@@ -125,9 +92,4 @@ app.use(express.static(__dirname + '/views'));
 
 app.set('view engine', 'ejs')
 
-httpServer.listen(port, () => {
-    console.log(`running server on ${port}`)
-    
-})
-
-  
+app.listen(port)
