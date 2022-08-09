@@ -15,7 +15,7 @@ Router.get('/storage', (req, res) => {
 
 Router.get('/storage/total', (req, res) => {
 
-    const child = exec(`df -h /dev/sda4 | awk '{print$4}'| sed -e 's/^[ \t]*/ /' | tr -d '[\n]'`)
+    const child = exec(`df -h /dev/sda4 | awk '{print$2}'| sed -e 's/^[ \t]*/ /' | tr -d '[\n]'`)
     process.stdin.pipe(child.stdin)
     child.stdout.on('data', (data) => {
             
