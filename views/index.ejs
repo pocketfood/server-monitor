@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <link rel="stylesheet" href="css/patternfly.css" type="text/css">
-    <link rel="stylesheet" href="css/patternfly-addons.css" type="text/css">   
+    <link rel="stylesheet" href="css/patternfly-addons.css" type="text/css">
+    <link rel="stylesheet" href="css/chart.css" type="text/css">   
 <head>
   
 </head>
@@ -24,22 +24,87 @@
 
 <main>
   <div class="dashboard">
-    <br>
+    <div class="charts">
+    <canvas id="storage"></canvas>
+    <span></span>
+    <canvas id="storage2"></canvas>
+  </div>
+
+</main> 
+
+<footer>
     <span></span>
     <p type="text" class="uptime"><%= locals.uptime %></p>
-    
-    
-    
-    <p><%= locals.storage %> out of <%= locals.storagetotal %></p>
-</main>
+</footer>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<footer></footer>
+<script>
 
-<script src="css/dist/chart.js"></script>
+  // This is where you are gonna feed in your data  
+  let storage = '<%= locals.storage %>' 
+  let storagetotal = '<%= locals.storagetotal %>'
+
+  let yValues = [storage, storagetotal];
+
+  let barColors = ["lightBlue", "navy"];
+  let xValues = ["Used", "Total"];
+  
+  new Chart("storage", {
+    type: "doughnut",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }],
+    },
+    options: {
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: false,
+      }
+    }
+    }
+  });
+  </script> 
+  
+  <script>
+
+    // This is where you are gonna feed in your data
+    let yValues2 = [345, 924];
+  
+    let barColors2 = ["lightBlue", "navy"];
+    let xValues2 = ["var1", "var2"];
+    
+    new Chart("storage2", {
+      type: "doughnut",
+      data: {
+        labels: xValues2,
+        datasets: [{
+          backgroundColor: barColors2,
+          data: yValues2
+        }],
+      },
+      options: {
+      plugins: {
+        legend: {
+          position: 'right',
+        },
+        title: {
+          display: false,
+        }
+      }
+      }
+    });
+    </script> 
+    
 
 <script >
-  
+
 // use Sockets they say...
 
 async function uptime() {
@@ -50,9 +115,7 @@ async function uptime() {
   },
   ).then(response => response.json()).then(data => 
   {
-    
     document.querySelector("p").innerHTML = data.uptime;    
-
   });
 } 
 setInterval(uptime, 1000) 
